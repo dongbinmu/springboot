@@ -1,5 +1,6 @@
 package com.dongbin.common.filter;
 
+import com.dongbin.common.except.MyException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -8,7 +9,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * Created by dongbin on 2018/4/16.
@@ -54,7 +54,7 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             try {
                 executeLogin(request, response);
             } catch (Exception e) {
-                response401(response);
+                throw new MyException(e.getMessage(),11);
             }
         }
         return true;
@@ -78,16 +78,4 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
         return super.preHandle(request, response);
     }
 
-
-    /**
-     * 将非法请求跳转到 /401
-     */
-    private void response401(ServletResponse resp) {
-        try {
-            HttpServletResponse httpServletResponse = (HttpServletResponse) resp;
-            httpServletResponse.sendRedirect("/401");
-        } catch (IOException e) {
-
-        }
-    }
 }

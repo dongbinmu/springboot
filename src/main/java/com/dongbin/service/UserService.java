@@ -22,6 +22,7 @@ public class UserService {
         UserExample example = new UserExample();
         example.createCriteria().andNameEqualTo(name);
         List<User> userList = userMapper.selectByExample(example);
+
         if (!CollectionUtils.isEmpty(userList)) {
             return userList.get(0);
         }
