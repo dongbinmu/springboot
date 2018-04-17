@@ -3,6 +3,7 @@ package com.dongbin.service;
 import com.dongbin.dao.UserMapper;
 import com.dongbin.model.User;
 import com.dongbin.model.UserExample;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -17,6 +18,7 @@ public class UserService {
     @Resource
     private UserMapper userMapper;
 
+    @Cacheable(cacheNames="username")
     public User getUserByName(String name) {
 
         UserExample example = new UserExample();
