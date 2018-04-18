@@ -106,7 +106,7 @@ public class ShiroConfig {
     @EventListener
     public void handleContextRefresh(ContextRefreshedEvent event) {
         ApplicationContext context = event.getApplicationContext();
-
+        System.out.println("------ApplicationContext -------------");
         ((DefaultWebSecurityManager) context.getBean("securityManager")).setRealm(getShiroDBRealm());
     }
 }
